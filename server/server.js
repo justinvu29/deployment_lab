@@ -20,16 +20,14 @@ app.use(express.json())
 app.use(express.static('public')) 
 
 app.get('/', (req,res) => {
-    res.status(200).sendFile(path.join(__dirname, '../public/index.html'))
-})
-
 try {
     nonExistentFunction();
   } catch (error) {
-    console.error(error);
-    // expected output: ReferenceError: nonExistentFunction is not defined
-    // Note - error messages will vary depending on browser
+    rollbar.error(error);
   }
+    res.status(200).sendFile(path.join(__dirname, '../public/index.html'))
+})
+
   
 
 
